@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Pleos Vehicle SDK: 주행거리(Odometer), 기어(deprecated), 브레이크 페달 -->
+    <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />
+    <!-- Pleos FusedLocation SDK -->
+    <uses-permission android:name="pleos.car.permission.FUSED_LOCATION" />
+    <!-- Pleos NaviHelper SDK: 조회 API -->
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE" />
+    <!--
+        NAVI_ROUTE_SEARCH 는 선언하지 않는다. 내비 경로 요청(requestRoute)에만 필요하고(V-06, 에뮬레이터 실측),
+        앱 본체는 경로를 요청하지 않는다. 검증 화면의 경로 요청은 이 권한이 없으면 SecurityException 을
+        잡아 로그만 남긴다. 경로 요청을 다시 시험하려면 이 줄을 임시로 추가한다.
+    -->
+    <!-- Pleos TextToSpeech SDK (에뮬레이터 실행 시 SecurityException으로 필요함을 확인) -->
+    <uses-permission android:name="pleos.car.permission.TTS_SERVICE" />
+
+    <!--
+        검증 전용(V-02, V-04): AAOS 표준 속성 PERF_VEHICLE_SPEED, GEAR_SELECTION 읽기 시도.
+        Pleos App Market은 승인되지 않은 퍼미션을 선언하면 심사를 통과할 수 없으므로,
+        검증 결과에 따라 제출용 빌드에서는 제거해야 한다. (docs/DEVELOPMENT.md 4장 참조)
+    -->
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+
+    <!--
+        앱 화면이 내비게이션에 가려져도 주행 기록이 끊기지 않게 하는 포그라운드 서비스용. 일반(normal) 권한이다.
+        Pleos App Market 심사에서 허용되는지는 미확인이다. (docs/DEVELOPMENT.md V-16)
+    -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.DriveCash">
+
+        <uses-library
+            android:name="android.car"
+            android:required="false" />
+
+        <service
+            android:name=".DriveKeepAliveService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="주행 중 앱 화면이 가려져도 주행 거리와 안전운전 점수 기록을 이어가기 위함" />
+        </service>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <!--
+                AAOS 표준: 주행 중에도 화면을 유지하려면 Distraction Optimized(DO)로 선언해야 한다.
+                이 앱의 주행 모드 화면은 조작 버튼 없이 거리·포인트만 보여준다.
+                선언이 인정되는지는 Pleos 심사 기준에 달려 있어 확인이 필요하다. (docs/DEVELOPMENT.md V-14)
+            -->
+            <meta-data
+                android:name="distractionOptimized"
+                android:value="true" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

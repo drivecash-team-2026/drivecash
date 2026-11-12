@@ -1,0 +1,23 @@
+# Gradle / Android
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 공모전 안내 자료 원본(비밀유지 문구 포함). 공개 저장소에 올리지 않는다. (docs/DEVELOPMENT.md D-025)
+참고자료/
+
+# 제출 준비용 로컬 메모(개인정보 점검 내용 포함). 공개하지 않는다.
+docs/SUBMISSION.md
