@@ -21,3 +21,5 @@ Thumbs.db
 
 # 제출 준비용 로컬 메모(개인정보 점검 내용 포함). 공개하지 않는다.
 docs/SUBMISSION.md
+# 제출용 APK는 release 폴더에 둔다
+!/release/*.apk

@@ -25,6 +25,14 @@
 
 Vehicle SDK에는 속도·가속도 API가 없어 속도는 Android Automotive 표준 속성으로 읽고, 급가속·급제동은 속도 변화율로 앱이 직접 계산합니다. 내비게이션은 안전운전 점수를 제공하지 않아 점수도 앱이 직접 산출합니다.
 
+## 설치 파일 (APK)
+
+[release/drivecash-1.0.0.apk](release/drivecash-1.0.0.apk) (38.7MB, 버전 1.0.0, minSdk 28)
+
+- SHA-256: `F54E859F8D28B615B445B757EAB2618EDB5C4F542992559BE94FE96606393E2D`
+- 서명 인증서: `CN=DriveCash, OU=Demo, O=DriveCash, C=KR` (개인 정보 없음)
+- Pleos Connect 에뮬레이터에 설치합니다: `adb install -g release/drivecash-1.0.0.apk`
+- 이 APK는 저장소의 소스 그대로 빌드한 것입니다.
 ## 빌드와 실행
 
 필요한 것: JDK 17, Android SDK (API 34/35), [Pleos Connect 에뮬레이터 v2.1.0](https://document.pleos.ai/docs/connect/guide/getting-started/application-development/setup-connect-sdk-emulator).
